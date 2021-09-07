@@ -16,6 +16,11 @@ button {
   margin-bottom: 4rem;
 }
 
+button:hover {
+  background-color: #32174f;
+  cursor: pointer;
+}
+
 header {
   background: #4a2373;
   color: white;
@@ -46,18 +51,19 @@ textarea:focus {
 
 .row > img {
   border-radius: 1rem;
-  object-fit: fill;
+  object-fit: contain;
   margin-bottom: 1rem;
 }
 
 .container h1 {
-  margin: 0;
+  margin: 0.5rem 0;
   padding: 1rem 0;
   font-weight: 600;
 }
 
 label h4 {
   margin: 1.5rem 0 0.5rem;
+  font-size: 1.2rem;
 }
 
 .container h1,
@@ -72,5 +78,8 @@ header h3 {
 
 .firsth4 {
   margin-top: 0;
-  margin-bottom: 1.5rem;
+}
+
+.newEntry {
+  margin-left: 0.5rem;
 }
