@@ -6,9 +6,16 @@ textarea {
 
 button {
   float: right;
+  color: white;
+  background-color: #4a2373;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  margin-top: 10px;
+  margin-right: 0.5rem;
 }
 
-header h3 {
+header {
   background: #4a2373;
   color: white;
   padding: 1rem 1.5rem;
@@ -17,17 +24,41 @@ header h3 {
 
 body {
   background-color: #edebed;
+  font-family: sans-serif;
 }
 
 input {
   height: 2rem;
+  border-radius: 5px;
 }
 
-h1 {
+textarea {
+  border-radius: 5px;
+}
+
+input:focus,
+textarea:focus {
+  border: 5px solid purple;
+}
+
+.row > img {
+  border-radius: 1rem;
+}
+
+.container h1 {
   margin: 0;
   padding: 1rem 0;
 }
 
-label h3 {
-  margin: 0.5rem 0;
+label h4 {
+  margin: 1.5rem 0 0.5rem;
+}
+
+.container h1,
+label h4 {
+  color: #363638;
+}
+
+header h3 {
+  font-weight: 200;
 }
