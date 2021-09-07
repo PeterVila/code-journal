@@ -38,7 +38,7 @@ textarea {
 
 input:focus,
 textarea:focus {
-  border: 5px solid purple;
+  outline-color: purple;
 }
 
 .row > img {
