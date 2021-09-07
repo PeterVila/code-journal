@@ -51,7 +51,7 @@ textarea:focus {
 
 .row > img {
   border-radius: 1rem;
-  object-fit: contain;
+  object-fit: cover;
   margin-bottom: 1rem;
 }
 
