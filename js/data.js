@@ -6,5 +6,3 @@ var data = {
   editing: null,
   nextEntryId: 1
 };
-
-// Object into entries
