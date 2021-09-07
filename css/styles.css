@@ -29,6 +29,7 @@ body {
 
 input {
   height: 2rem;
+  font-size: 1rem;
   border-radius: 5px;
 }
 
@@ -43,6 +44,7 @@ textarea:focus {
 
 .row > img {
   border-radius: 1rem;
+  object-fit: fill;
 }
 
 .container h1 {
