@@ -17,7 +17,8 @@ function logForm(event) {
   var formObject = {
     title: $inputTitle.value,
     photoUrl: $imgUrl.value,
-    notes: $textArea.value
+    notes: $textArea.value,
+    entryId: data.nextEntryId
   };
   data.nextEntryId += 1;
   data.entries.unshift(formObject);
@@ -64,12 +65,10 @@ var $entriesLink = document.querySelector('a[href="#entry-form"]');
 
 $newButton.addEventListener('click', function () {
   switchViews($newEntry.getAttribute('data-view'));
-  data.view = 'entry-form';
 });
 
 $entriesLink.addEventListener('click', function () {
   switchViews($entriesPage.getAttribute('data-view'));
-  data.view = 'all-entries';
 });
 
 var $viewElements = document.querySelectorAll('div[data-view]');
@@ -80,6 +79,7 @@ function switchViews(view) {
       $viewElements[i].className = 'hidden';
     } else {
       $viewElements[i].className = '';
+      data.view = $viewElements[i].getAttribute('data-view');
     }
   }
 }
@@ -96,10 +96,5 @@ function appendDOM() {
   for (var i = 0; i < data.entries.length; i++) {
     entryDOM(data.entries[i]);
   }
-
-  if (data.view === 'entry-form') {
-    switchViews($newEntry.getAttribute('data-view'));
-  } else {
-    switchViews($entriesPage.getAttribute('data-view'));
-  }
+  switchViews(data.view);
 }
