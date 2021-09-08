@@ -44,11 +44,13 @@ function entryDOM(entry){
     $createDivData.appendChild($createDivRow);
     $createDivRow.setAttribute('class','row');
       $createDivRow.appendChild($createImg);
+      $createImg.setAttribute('img', entry.photoUrl)
       $createImg.setAttribute('class','column-half');
       $createDivRow.appendChild($createDivColHalf);
       $createDivColHalf.setAttribute('class','column-half');
         $createDivColHalf.appendChild($createH2);
+        $createH2.textContent = entry.title;
         $createDivColHalf.appendChild($createP);
-  console.log($createLi);
+        $createP.textContent = entry.notes
+  return $createLi
 }
-entryDOM()
