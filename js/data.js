@@ -10,5 +10,6 @@ var data = {
 window.addEventListener('beforeunload', logBefore);
 
 function logBefore(event) {
-  window.localStorage.setItem('javascript-local-storage', JSON.stringify(data));
+  var entriesData = JSON.stringify(data);
+  localStorage.setItem('javascript-local-storage', entriesData);
 }
