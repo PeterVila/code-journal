@@ -44,7 +44,9 @@ function entryDOM(entry){
     $createDivData.appendChild($createDivRow);
     $createDivRow.setAttribute('class','row');
       $createDivRow.appendChild($createImg);
-      $createImg.setAttribute('src', entry.photoUrl)
+      $createImg.setAttribute('src', entry.photoUrl);
+      $createImg.setAttribute('height', '400px');
+      $createImg.setAttribute('class', 'column-half');
       $createImg.setAttribute('class','column-half');
       $createDivRow.appendChild($createDivColHalf);
       $createDivColHalf.setAttribute('class','column-half');

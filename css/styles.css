@@ -2,6 +2,7 @@ input,
 textarea {
   width: 100%;
   border: 1px solid #cfcecf;
+  padding-left: 1rem;
 }
 
 button {
