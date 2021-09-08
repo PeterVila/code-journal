@@ -18,5 +18,3 @@ var leftoverEntries = localStorage.getItem('entries-data');
 if (leftoverEntries !== null) {
   data = JSON.parse(leftoverEntries);
 }
-
-// Fresh page = same as before

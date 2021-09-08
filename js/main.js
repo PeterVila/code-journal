@@ -23,14 +23,11 @@ function logForm(event) {
   data.entries.unshift(formObject);
   $setImg.setAttribute('src', 'images/placeholder-image-square.jpg');
   $formSubmit.reset();
-  // Updating DOM as SAVE is clicked
   $ul.prepend(entryDOM(formObject));
   $newEntry.className = 'hidden';
   $entriesPage.className = '';
   data.view = 'entries';
 }
-
-// Issue 2 - User can view their entries
 
 function entryDOM(entry) {
   var $createLi = document.createElement('li');
@@ -57,7 +54,6 @@ function entryDOM(entry) {
   $createDivColHalf.appendChild($createP);
   $createP.textContent = entry.notes;
   $ul.appendChild($createLi);
-
   return $createLi;
 }
 
@@ -100,6 +96,7 @@ function appendDOM() {
   for (var i = 0; i < data.entries.length; i++) {
     entryDOM(data.entries[i]);
   }
+
   if (data.view === 'entry-form') {
     switchViews($newEntry.getAttribute('data-view'));
   } else {
