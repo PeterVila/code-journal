@@ -18,17 +18,23 @@ function logForm(event) {
     title: $inputTitle.value,
     photoUrl: $imgUrl.value,
     notes: $textArea.value,
-    nextEntryId: data.nextEntryId + 1
+    nextEntryId: data.nextEntryId + 1,
+    view: 'entry-form',
   };
   data.nextEntryId += 1;
   data.entries.unshift(formObject);
   $setImg.setAttribute('src', 'images/placeholder-image-square.jpg');
   $formSubmit.reset();
+  //Updating DOM as SAVE is clicked
+  $ul.prepend(entryDOM(formObject));
+  $newEntry.className = 'hidden';
+  $entriesPage.className = '';
+  data.view = "all-entries"
 }
 
-//Issue 2 - User can view their entries
+// Issue 2 - User can view their entries
 
-function entryDOM(entry){
+function entryDOM(entry) {
   var $createLi = document.createElement('li');
   var $createDivData = document.createElement('div');
   var $createDivRow = document.createElement('div');
@@ -38,40 +44,43 @@ function entryDOM(entry){
   var $createP = document.createElement('p');
 
   $createLi.appendChild($createDivData);
-    $createDivData.setAttribute('data-view', 'entries');
-    $createDivData.appendChild($createDivRow);
-    $createDivRow.setAttribute('class','row');
-      $createDivRow.appendChild($createImg);
-      $createImg.setAttribute('src', entry.photoUrl);
-      $createImg.setAttribute('height', '400px');
-      $createImg.setAttribute('class', 'column-half');
-      $createImg.setAttribute('class','column-half');
-      $createDivRow.appendChild($createDivColHalf);
-      $createDivColHalf.setAttribute('class','column-half');
-        $createDivColHalf.appendChild($createH2);
-        $createH2.textContent = entry.title;
-        $createDivColHalf.appendChild($createP);
-        $createP.textContent = entry.notes;
-  $ul.appendChild($createLi)
+  $createDivData.setAttribute('data-view', 'entries');
+  $createDivData.appendChild($createDivRow);
+  $createDivRow.setAttribute('class', 'row');
+  $createDivRow.appendChild($createImg);
+  $createImg.setAttribute('src', entry.photoUrl);
+  $createImg.setAttribute('height', '400px');
+  $createImg.setAttribute('class', 'column-half');
+  $createImg.setAttribute('class', 'column-half');
+  $createDivRow.appendChild($createDivColHalf);
+  $createDivColHalf.setAttribute('class', 'column-half');
+  $createDivColHalf.appendChild($createH2);
+  $createH2.textContent = entry.title;
+  $createDivColHalf.appendChild($createP);
+  $createP.textContent = entry.notes;
+  $ul.appendChild($createLi);
 
+  return $createLi
 }
 
-var $entriesPage = document.querySelector('div[data-view="entries"]')
-var $newButton = document.querySelector('.newButton')
-var $newEntry = document.querySelector('div[data-view="entry-form"]')
+var $entriesPage = document.querySelector('div[data-view="entries"]');
+var $newButton = document.querySelector('.newButton');
+var $newEntry = document.querySelector('div[data-view="entry-form"]');
 var $entriesLink = document.querySelector('a[href="#entry-form"]');
 
-$newButton.addEventListener('click', function(){
-  $newEntry.className = ''
-  $entriesPage.className = 'hidden'
-})
+$newButton.addEventListener('click', function () {
+  $newEntry.className = '';
+  $entriesPage.className = 'hidden';
+  data.view = "entry-form"
+});
 
-$entriesLink.addEventListener('click', function(){
-  $newEntry.className = 'hidden'
-  $entriesPage.className = ''
-})
+$entriesLink.addEventListener('click', function () {
+  $newEntry.className = 'hidden';
+  $entriesPage.className = '';
+  data.view = "all-entries"
+});
 
-var $noItems = document.querySelector('.center-text')
-if ($ul.childElementCount === 0){
-  $noItems.className = "center-text hidden"
+var $noItems = document.querySelector('.center-text');
+if ($ul.childElementCount === 0) {
+  $noItems.className = 'center-text hidden';
 }

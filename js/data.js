@@ -25,4 +25,13 @@ function appendDOM() {
   for (var i = 0; i < data.entries.length; i++) {
     entryDOM(data.entries[i]);
   }
+  if (data.view === 'entry-form'){
+      $newEntry.className = '';
+      $entriesPage.className = 'hidden';
+  } else {
+      $newEntry.className = 'hidden';
+      $entriesPage.className = '';
+  }
 }
+
+//Fresh page = same as before
