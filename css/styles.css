@@ -67,7 +67,8 @@ label h4 {
 }
 
 .container h1,
-label h4 {
+label h4,
+p, h2 {
   color: #363638;
 }
 
@@ -82,4 +83,16 @@ header h3 {
 
 .newEntry {
   margin-left: 0.5rem;
+}
+
+h2 {
+  
+}
+li {
+  list-style-type: none;
+  margin-bottom: 2rem;
+}
+
+ul {
+  padding-inline-start: 0;
 }
