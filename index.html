@@ -16,14 +16,12 @@
 </head>
 <body>
       <header>
-        <h3 class="container">Code Journal</h3>
+        <h3 class="container">Code Journal<a href="#entry-form">Entries</a></h3>
       </header>
     <div class="container">
       <main>
-        <div class="newEntry">
+        <div data-view="entry-form" class=""> <!--Hidden-->
           <h1>New Entry</h1>
-        </div> 
-        <div data-view="entry-form" class="hidden"> <!--Hidden-->
           <form id="entry-form">
             <div class="row">
               <img class="column-half" src="images/placeholder-image-square.jpg" alt="" height="400px">
@@ -44,11 +42,20 @@
               </label>
               <textarea name="notes" id="notes" cols="30" rows="10" required></textarea>
             </div>
-            <button type="submit">SAVE</button><br>
+            <button type="submit">SAVE</button>
           </form>
         </div>
-        <ul>
-        </ul>
+        <div data-view="entries" class="hidden">
+          <div class="row justify-space">
+            <h1>Entries</h1>
+            <button class="newButton" type="submit">NEW</button>
+          </div>
+          <div class="center-text">
+            <p>No entries have been recorded.</p>
+          </div>
+          <ul>
+          </ul>
+        </div>
       </main>
   </div>
   <script src="js/data.js"></script>

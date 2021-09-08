@@ -29,6 +29,12 @@ header {
   margin: 0 auto;
 }
 
+header a {
+  color: white;
+  margin-left: 1.5rem;
+  text-decoration: none;
+  font-size: 1rem;
+}
 body {
   background-color: #edebed;
   font-family: sans-serif;
@@ -56,7 +62,8 @@ img {
   margin-bottom: 1rem;
 }
 
-.container h1 {
+.container h1,
+.justify-space h1 {
   margin: 0.5rem 0;
   padding: 1rem 0;
   font-weight: 600;
@@ -82,10 +89,6 @@ header h3 {
   margin-top: 0;
 }
 
-.newEntry {
-  margin-left: 0.5rem;
-}
-
 h2 {
   margin-top: 0;
 }
@@ -97,4 +100,15 @@ li {
 
 ul {
   padding-inline-start: 0;
+}
+
+.newButton {
+  margin: 1.5rem 0;
+  padding: 0rem 1.5rem;
+  font-size: 1.1rem
+}
+
+.center-text {
+  text-align: center;
+  font-size: 1.5rem;
 }

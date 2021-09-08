@@ -6,13 +6,11 @@ var $inputTitle = document.querySelector('input[id=title]');
 var $textArea = document.querySelector('textarea');
 var $setImg = document.querySelector('img');
 var $ul = document.querySelector('ul');
-// Listening for input changes for IMAGE
 $imgUrl.addEventListener('input', changeImg);
 function changeImg(event) {
   $setImg.setAttribute('src', event.target.value);
 }
 
-// Listening for submit event
 $formSubmit.addEventListener('submit', logForm);
 function logForm(event) {
   event.preventDefault();
@@ -58,4 +56,22 @@ function entryDOM(entry){
 
 }
 
+var $entriesPage = document.querySelector('div[data-view="entries"]')
+var $newButton = document.querySelector('.newButton')
+var $newEntry = document.querySelector('div[data-view="entry-form"]')
+var $entriesLink = document.querySelector('a[href="#entry-form"]');
 
+$newButton.addEventListener('click', function(){
+  $newEntry.className = ''
+  $entriesPage.className = 'hidden'
+})
+
+$entriesLink.addEventListener('click', function(){
+  $newEntry.className = 'hidden'
+  $entriesPage.className = ''
+})
+
+var $noItems = document.querySelector('.center-text')
+if ($ul.childElementCount === 0){
+  $noItems.className = "center-text hidden"
+}
