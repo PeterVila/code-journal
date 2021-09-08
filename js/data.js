@@ -16,6 +16,11 @@ function logBefore(event) {
 
 window.addEventListener('DOMContentLoaded', appendDOM)
 
+var leftoverEntries = localStorage.getItem('entries-data');
+if (leftoverEntries !== null) {
+  data = JSON.parse(leftoverEntries);
+}
+
 function appendDOM() {
   for (var i = 0; i < data.entries.length; i++) {
     entryDOM(data.entries[i]);
