@@ -2,7 +2,7 @@
 /* exported data */
 var $imgUrl = document.querySelector('input[id="photoUrl"]');
 var $formSubmit = document.querySelector('form');
-var $input = document.querySelectorAll('input');
+var $inputTitle = document.querySelector('input[id=title]');
 var $textArea = document.querySelector('textarea');
 var $setImg = document.querySelector('img');
 
@@ -17,18 +17,15 @@ $formSubmit.addEventListener('submit', logForm);
 function logForm(event) {
   event.preventDefault();
   var formObject = {
-    title: $input[0].value,
-    photoUrl: $input[1].value,
+    title: $inputTitle.value,
+    photoUrl: $imgUrl.value,
     notes: $textArea.value,
     nextEntryId: data.nextEntryId + 1
   };
   data.nextEntryId += 1;
   data.entries.unshift(formObject);
   $setImg.setAttribute('src', 'images/placeholder-image-square.jpg');
-  $input[0].value = '';
-  $input[1].value = '';
-  $textArea.value = '';
-  window.localStorage.setItem('javascript-local-storage', JSON.stringify(data));
+  $formSubmit.reset();
 }
 
 // Put the form 's input values into a new object.
