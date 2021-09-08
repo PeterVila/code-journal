@@ -17,19 +17,17 @@ function logForm(event) {
   var formObject = {
     title: $inputTitle.value,
     photoUrl: $imgUrl.value,
-    notes: $textArea.value,
-    nextEntryId: data.nextEntryId + 1,
-    view: 'entry-form',
+    notes: $textArea.value
   };
   data.nextEntryId += 1;
   data.entries.unshift(formObject);
   $setImg.setAttribute('src', 'images/placeholder-image-square.jpg');
   $formSubmit.reset();
-  //Updating DOM as SAVE is clicked
+  // Updating DOM as SAVE is clicked
   $ul.prepend(entryDOM(formObject));
   $newEntry.className = 'hidden';
   $entriesPage.className = '';
-  data.view = "all-entries"
+  data.view = 'entries';
 }
 
 // Issue 2 - User can view their entries
@@ -60,7 +58,7 @@ function entryDOM(entry) {
   $createP.textContent = entry.notes;
   $ul.appendChild($createLi);
 
-  return $createLi
+  return $createLi;
 }
 
 var $entriesPage = document.querySelector('div[data-view="entries"]');
@@ -69,18 +67,42 @@ var $newEntry = document.querySelector('div[data-view="entry-form"]');
 var $entriesLink = document.querySelector('a[href="#entry-form"]');
 
 $newButton.addEventListener('click', function () {
-  $newEntry.className = '';
-  $entriesPage.className = 'hidden';
-  data.view = "entry-form"
+  switchViews($newEntry.getAttribute('data-view'));
+  data.view = 'entry-form';
 });
 
 $entriesLink.addEventListener('click', function () {
-  $newEntry.className = 'hidden';
-  $entriesPage.className = '';
-  data.view = "all-entries"
+  switchViews($entriesPage.getAttribute('data-view'));
+  data.view = 'all-entries';
 });
 
+var $viewElements = document.querySelectorAll('div[data-view]');
+
+function switchViews(view) {
+  for (var i = 0; i < $viewElements.length; i++) {
+    if ($viewElements[i].getAttribute('data-view') !== view) {
+      $viewElements[i].className = 'hidden';
+    } else {
+      $viewElements[i].className = '';
+    }
+  }
+}
+
+window.addEventListener('DOMContentLoaded', appendDOM);
 var $noItems = document.querySelector('.center-text');
 if ($ul.childElementCount === 0) {
   $noItems.className = 'center-text hidden';
+} else {
+  $noItems.className = 'center-text';
+}
+
+function appendDOM() {
+  for (var i = 0; i < data.entries.length; i++) {
+    entryDOM(data.entries[i]);
+  }
+  if (data.view === 'entry-form') {
+    switchViews($newEntry.getAttribute('data-view'));
+  } else {
+    switchViews($entriesPage.getAttribute('data-view'));
+  }
 }
