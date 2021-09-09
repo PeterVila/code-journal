@@ -23,12 +23,26 @@ function logForm(event) {
     notes: $textArea.value,
     entryId: data.nextEntryId
   };
-  data.nextEntryId += 1;
-  data.entries.unshift(formObject);
-  $setImg.setAttribute('src', 'images/placeholder-image-square.jpg');
-  $formSubmit.reset();
-  $ul.prepend(entryDOM(formObject));
+    //If editting is NOT null, go through data.entries array and match it to the number in data.editing
+      //Once found, splice 
+  if (data.editing != null){
+    for (var k = 0; k < data.entries.length; k++){
+      if (k === data.editing) {
+        data.entries.splice(k, 1, formObject)
+      }
+    }
+  } else {
+      data.nextEntryId += 1;
+      data.entries.unshift(formObject); //Splice...?
+      $setImg.setAttribute('src', 'images/placeholder-image-square.jpg');
+      $formSubmit.reset();
+
+      //
+      $ul.prepend(entryDOM(formObject));
+  }
+
   switchViews("entries");
+  data.editing = null;
 }
 
 function entryDOM(entry) {
@@ -121,7 +135,6 @@ function appendDOM() {
     entryDOM(data.entries[i]);
   }
   switchViews(data.view);
-
   //Making every icon clickable 
   var $icon = document.querySelectorAll('i');
   for(var i = 0; i < $icon.length; i++){
@@ -166,15 +179,3 @@ $entriesPage.addEventListener('click', function () {
     
   }
 })
-
-
-
-
-/*
-Clicking the icon opens entry-form
-Information from [i] of $editIcon to match data.entries[i]
-
-Clicking that button 
-
-*/
-// for (var i = 0; i >)
