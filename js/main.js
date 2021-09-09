@@ -50,13 +50,6 @@ function logForm(event) {
 }
 
 function entryDOM(entry) {
-    var $icon = document.querySelectorAll('i');
-    for (var i = 0; i < $icon.length; i++) {
-      $icon[i].setAttribute("EntryId", $icon.length - i)
-      $icon[i].addEventListener('click', function () {
-        switchViews(event.target.getAttribute('data-view'))
-      })
-    }
   var $createLi = document.createElement('li');
   var $createDivData = document.createElement('div');
   var $createDivRow = document.createElement('div');
@@ -131,29 +124,24 @@ function appendDOM() {
     entryDOM(data.entries[i]);
   }
   switchViews(data.view);
-  var $icon = document.querySelectorAll('i');
-  for(var i = 0; i < $icon.length; i++){
-    $icon[i].setAttribute("EntryId", $icon.length - i)
-    $icon[i].addEventListener('click', function(){
-      switchViews(event.target.getAttribute('data-view'))
-      console.log("$icon[i]:", $icon[0].attributes.entryid)
-    })
-  }
-  var $liAll = document.querySelectorAll('li');
-  for (var y = 0; y < $liAll.length; y++) {
-    $liAll[y].setAttribute('position', $liAll.length - y)
-  }
 }
 
+
 $entriesPage.addEventListener('click', function () {
+  
   if (event.target.tagName === 'I') {
+      var $icon = document.querySelectorAll('i');
+      for (var i = 0; i < $icon.length; i++) {
+        $icon[i].setAttribute("data-entry-id", $icon.length - i);
+      }
+      switchViews(event.target.getAttribute('data-view'))
     for (var x = 0; x < data.entries.length; x++){
-      if (data.entries[x].entryId === parseInt(event.target.attributes.EntryId.value)){
+      if (data.entries[x].entryId === parseInt(event.target.attributes['data-entry-id'].value)) {
         $inputTitle.value = data.entries[x].title;
         $imgUrl.value = data.entries[x].photoUrl
         $textArea.value = data.entries[x].notes
         $setImg.setAttribute('src', data.entries[x].photoUrl);
-        data.editing = parseInt(event.target.attributes.EntryId.value)
+        data.editing = parseInt(event.target.attributes['data-entry-id'].value)
       }
     }
   }
