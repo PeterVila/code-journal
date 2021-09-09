@@ -25,16 +25,22 @@ function logForm(event) {
   };
   if (data.editing !== null){
     for (var k = 0; k < data.entries.length; k++) {
-      if (data.editing === data.entries[k].entryId) {
+      if (data.editing === data.entries[k]) {
         var changeObject = {
           title: $inputTitle.value,
           photoUrl: $imgUrl.value,
           notes: $textArea.value,
           entryId: data.entries.length - k
         }
+        
         data.entries.splice(k, 1, changeObject)
         var $findLi = document.querySelectorAll('li')
-        $findLi[k].replaceWith(entryDOM(changeObject))
+        
+        for (var p = 0; p < $findLi.length; p++){
+          if (parseInt($findLi[p].attributes['data-entry-id'].value) === data.editing.entryId){
+            $findLi[p].replaceWith(entryDOM(changeObject))
+          }
+        }
         data.editing = null;
       }
     }
@@ -44,6 +50,7 @@ function logForm(event) {
       $setImg.setAttribute('src', 'images/placeholder-image-square.jpg');
       $formSubmit.reset();
       $ul.prepend(entryDOM(formObject));
+      
     }
    switchViews("entries");
    
@@ -79,8 +86,8 @@ function entryDOM(entry) {
   $justifyDiv.appendChild($createIcon);
   $createDivColHalf.appendChild($createP);
   $createP.textContent = entry.notes;
-
-  $ul.appendChild($createLi);
+  
+  // $ul.appendChild($createLi);
   return $createLi;
 }
 
@@ -121,7 +128,7 @@ var $noItems = document.querySelector('.center-text');
 
 function appendDOM() {
   for (var i = 0; i < data.entries.length; i++) {
-    entryDOM(data.entries[i]);
+    $ul.append(entryDOM(data.entries[i]));
   }
   switchViews(data.view);
 }
@@ -129,10 +136,13 @@ function appendDOM() {
 
 $entriesPage.addEventListener('click', function () {
   
+  var $liItems = document.querySelectorAll('li');
+
   if (event.target.tagName === 'I') {
       var $icon = document.querySelectorAll('i');
       for (var i = 0; i < $icon.length; i++) {
         $icon[i].setAttribute("data-entry-id", $icon.length - i);
+        $liItems[i].setAttribute("data-entry-id", $icon.length - i)
       }
       switchViews(event.target.getAttribute('data-view'))
     for (var x = 0; x < data.entries.length; x++){
@@ -141,7 +151,7 @@ $entriesPage.addEventListener('click', function () {
         $imgUrl.value = data.entries[x].photoUrl
         $textArea.value = data.entries[x].notes
         $setImg.setAttribute('src', data.entries[x].photoUrl);
-        data.editing = parseInt(event.target.attributes['data-entry-id'].value)
+        data.editing = data.entries[x]
       }
     }
   }
