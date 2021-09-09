@@ -9,6 +9,7 @@ var $ul = document.querySelector('ul');
 
 
 $imgUrl.addEventListener('input', changeImg);
+
 function changeImg(event) {
   $setImg.setAttribute('src', event.target.value);
 }
@@ -56,6 +57,8 @@ function entryDOM(entry) {
   $createImg.setAttribute('height', '400px');
   $createImg.setAttribute('class', 'column-half');
   $createImg.setAttribute('class', 'column-half');
+  
+  
   $createDivRow.appendChild($createDivColHalf);
   $createDivColHalf.setAttribute('class', 'column-half');
 
@@ -106,35 +109,47 @@ function switchViews(view) {
   } else {
     $noItems.className = 'center-text hidden';
   }
+
+
+  ////
+  ////
+  ////
+  $setImg.setAttribute('src', data.entries[0].photoUrl);
 }
 
 window.addEventListener('DOMContentLoaded', appendDOM);
 var $noItems = document.querySelector('.center-text');
+
 
 function appendDOM() {
   for (var i = 0; i < data.entries.length; i++) {
     entryDOM(data.entries[i]);
   }
   switchViews(data.view);
-
-
   var $icon = document.querySelectorAll('i');
   for(var i = 0; i < $icon.length; i++){
     $icon[i].addEventListener('click', function(){
       switchViews(event.target.getAttribute('data-view'))
-      console.log(data, "data");
-      console.log('which pencil #', i)
-      if (event.target.tagName === 'I') {
-        var whichElement = event.target.closest('li'); //parent container
-        console.dir(whichElement);
-        //Make a loop and if 
-      }
-      //entryID
-      // On click, return the closest 
-      //Want i = 1 to return entries form at 1 with inputs filled
+      // console.log(data, "data");
     })
   }
 }
+
+//Listen for clicks on parent element 
+$entriesPage.addEventListener('click', function () {
+  console.log(event.target)
+  if (event.target.tagName === 'I') {
+
+    //Updates right away..? 
+
+    //If entryId matches... ???
+    $inputTitle.value = data.entries[0].title;
+    $imgUrl.value = data.entries[0].photoUrl
+    $textArea.value = data.entries[0].notes
+    console.log(data, "data model")
+    console.dir(event.target);
+  }
+})
 
 
 
