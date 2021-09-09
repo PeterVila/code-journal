@@ -153,6 +153,9 @@ $entriesPage.addEventListener('click', function () {
            //Updates right away..? 
            $setImg.setAttribute('src', data.entries[x].photoUrl);
 
+           //Set editting to this number...?
+           data.editing = x;
+           //Now check if this value is not null in submit handler
       }
     }
     //If entryId matches... ???
