@@ -5,14 +5,12 @@ var $formSubmit = document.querySelector('form');
 var $inputTitle = document.querySelector('input[id=title]');
 var $textArea = document.querySelector('textarea');
 var $setImg = document.querySelector('img');
-
-// Listening for input changes for IMAGE
+var $ul = document.querySelector('ul');
 $imgUrl.addEventListener('input', changeImg);
 function changeImg(event) {
   $setImg.setAttribute('src', event.target.value);
 }
 
-// Listening for submit event
 $formSubmit.addEventListener('submit', logForm);
 function logForm(event) {
   event.preventDefault();
@@ -20,18 +18,81 @@ function logForm(event) {
     title: $inputTitle.value,
     photoUrl: $imgUrl.value,
     notes: $textArea.value,
-    nextEntryId: data.nextEntryId + 1
+    entryId: data.nextEntryId
   };
   data.nextEntryId += 1;
   data.entries.unshift(formObject);
   $setImg.setAttribute('src', 'images/placeholder-image-square.jpg');
   $formSubmit.reset();
+  $ul.prepend(entryDOM(formObject));
+  switchViews("entries");
 }
 
-// Put the form 's input values into a new object.
-// Add the nextEntryId to the object.
-// Increment the nextEntryId on the data model.
-// Prepend the new object to the entries in the data model.
-// Reset the image preview 's `src'
-// attribute.
-// Reset the form inputs.
+function entryDOM(entry) {
+  var $createLi = document.createElement('li');
+  var $createDivData = document.createElement('div');
+  var $createDivRow = document.createElement('div');
+  var $createImg = document.createElement('img');
+  var $createDivColHalf = document.createElement('div');
+  var $createH2 = document.createElement('h2');
+  var $createP = document.createElement('p');
+
+  $createLi.appendChild($createDivData);
+  $createDivData.setAttribute('data-view', 'entries');
+  $createDivData.appendChild($createDivRow);
+  $createDivRow.setAttribute('class', 'row');
+  $createDivRow.appendChild($createImg);
+  $createImg.setAttribute('src', entry.photoUrl);
+  $createImg.setAttribute('height', '400px');
+  $createImg.setAttribute('class', 'column-half');
+  $createImg.setAttribute('class', 'column-half');
+  $createDivRow.appendChild($createDivColHalf);
+  $createDivColHalf.setAttribute('class', 'column-half');
+  $createDivColHalf.appendChild($createH2);
+  $createH2.textContent = entry.title;
+  $createDivColHalf.appendChild($createP);
+  $createP.textContent = entry.notes;
+  $ul.appendChild($createLi);
+  return $createLi;
+}
+
+var $entriesPage = document.querySelector('div[data-view="entries"]');
+var $newButton = document.querySelector('.newButton');
+var $newEntry = document.querySelector('div[data-view="entry-form"]');
+var $entriesLink = document.querySelector('a[href="#entry-form"]');
+
+$newButton.addEventListener('click', handleViewNavigation);
+$entriesLink.addEventListener('click', handleViewNavigation)
+
+function handleViewNavigation(event){
+  switchViews(event.target.getAttribute('data-view'));
+}
+
+
+var $viewElements = document.querySelectorAll('div[data-view]');
+
+function switchViews(view) {
+  for (var i = 0; i < $viewElements.length; i++) {
+    if ($viewElements[i].getAttribute('data-view') !== view) {
+      $viewElements[i].className = 'hidden';
+    } else {
+      $viewElements[i].className = '';
+      data.view = $viewElements[i].getAttribute('data-view');
+    }
+  }
+}
+
+window.addEventListener('DOMContentLoaded', appendDOM);
+var $noItems = document.querySelector('.center-text');
+if ($ul.childElementCount === 0) {
+  $noItems.className = 'center-text hidden';
+} else {
+  $noItems.className = 'center-text';
+}
+
+function appendDOM() {
+  for (var i = 0; i < data.entries.length; i++) {
+    entryDOM(data.entries[i]);
+  }
+  switchViews(data.view);
+}
