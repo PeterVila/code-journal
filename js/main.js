@@ -23,26 +23,27 @@ function logForm(event) {
     notes: $textArea.value,
     entryId: data.nextEntryId
   };
-    //If editting is NOT null, go through data.entries array and match it to the number in data.editing
-      //Once found, splice 
-  if (data.editing != null){
-    for (var k = 0; k < data.entries.length; k++){
-      if (k === data.editing) {
-        data.entries.splice(k, 1, formObject)
+  if (data.editing !== null){
+    for (var k = 0; k < data.entries.length; k++) {
+      if (data.editing === data.entries[k].entryId) {
+        var changeObject = {
+          title: $inputTitle.value,
+          photoUrl: $imgUrl.value,
+          notes: $textArea.value,
+          entryId: data.editing
+        }
+        data.entries.splice(k, 1, changeObject)
+
       }
     }
   } else {
       data.nextEntryId += 1;
-      data.entries.unshift(formObject); //Splice...?
+      data.entries.unshift(formObject);
       $setImg.setAttribute('src', 'images/placeholder-image-square.jpg');
       $formSubmit.reset();
-
-      //
       $ul.prepend(entryDOM(formObject));
-  }
-
-  switchViews("entries");
-  data.editing = null;
+    }
+   switchViews("entries");
 }
 
 function entryDOM(entry) {
@@ -135,6 +136,7 @@ function appendDOM() {
     entryDOM(data.entries[i]);
   }
   switchViews(data.view);
+
   //Making every icon clickable 
   var $icon = document.querySelectorAll('i');
   for(var i = 0; i < $icon.length; i++){
@@ -145,7 +147,6 @@ function appendDOM() {
       // console.log(data, "data");
     })
   }
-  data.editing = null;
 }
 
 //Listen for clicks on parent element 
@@ -156,8 +157,9 @@ $entriesPage.addEventListener('click', function () {
  
     //Go through data model once we click the icon
     for (var x = 0; x < data.entries.length; x++){
-      console.log(data.entries[x].entryId)
-      
+      console.log("data.entries[x].entryId", data.entries[x].entryId)
+              console.log(event.target.attributes.EntryId.value)
+
       //Checks entryId # to the number we put as an attribute for icons
       if (data.entries[x].entryId === parseInt(event.target.attributes.EntryId.value)){
         $inputTitle.value = data.entries[x].title;
@@ -168,8 +170,8 @@ $entriesPage.addEventListener('click', function () {
            $setImg.setAttribute('src', data.entries[x].photoUrl);
 
            //Set editting to this number...?
-           data.editing = x;
-           //Now check if this value is not null in submit handler
+           //Now check
+           data.editing = parseInt(event.target.attributes.EntryId.value)
       }
     }
     //If entryId matches... ???
@@ -179,3 +181,24 @@ $entriesPage.addEventListener('click', function () {
     
   }
 })
+
+
+
+
+/*
+Clicking the icon opens entry-form
+Information from [i] of $editIcon to match data.entries[i]
+
+Clicking that button 
+
+*/
+// for (var i = 0; i >)
+
+/*
+If editting, need to keep entryId to stay the same
+notes,
+photoUrl
+title === object 
+
+if data.editing is the same as going through data.entries(loop) for entryId, then update it with splice
+*/
