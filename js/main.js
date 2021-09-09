@@ -132,6 +132,7 @@ function appendDOM() {
       // console.log(data, "data");
     })
   }
+  data.editing = null;
 }
 
 //Listen for clicks on parent element 
