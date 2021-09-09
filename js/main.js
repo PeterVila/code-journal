@@ -25,7 +25,7 @@ function logForm(event) {
   $setImg.setAttribute('src', 'images/placeholder-image-square.jpg');
   $formSubmit.reset();
   $ul.prepend(entryDOM(formObject));
-  switchViews($entriesPage.getAttribute('data-view'));
+  switchViews("entries");
 }
 
 function entryDOM(entry) {
