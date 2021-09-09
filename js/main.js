@@ -25,9 +25,7 @@ function logForm(event) {
   $setImg.setAttribute('src', 'images/placeholder-image-square.jpg');
   $formSubmit.reset();
   $ul.prepend(entryDOM(formObject));
-  $newEntry.className = 'hidden';
-  $entriesPage.className = '';
-  data.view = 'entries';
+  switchViews($entriesPage.getAttribute('data-view'));
 }
 
 function entryDOM(entry) {
@@ -63,13 +61,13 @@ var $newButton = document.querySelector('.newButton');
 var $newEntry = document.querySelector('div[data-view="entry-form"]');
 var $entriesLink = document.querySelector('a[href="#entry-form"]');
 
-$newButton.addEventListener('click', function () {
-  switchViews($newEntry.getAttribute('data-view'));
-});
+$newButton.addEventListener('click', handleViewNavigation);
+$entriesLink.addEventListener('click', handleViewNavigation)
 
-$entriesLink.addEventListener('click', function () {
-  switchViews($entriesPage.getAttribute('data-view'));
-});
+function handleViewNavigation(event){
+  switchViews(event.target.getAttribute('data-view'));
+}
+
 
 var $viewElements = document.querySelectorAll('div[data-view]');
 
