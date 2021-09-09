@@ -110,11 +110,6 @@ function switchViews(view) {
     $noItems.className = 'center-text hidden';
   }
 
-
-  ////
-  ////
-  ////
-  $setImg.setAttribute('src', data.entries[0].photoUrl);
 }
 
 window.addEventListener('DOMContentLoaded', appendDOM);
@@ -126,8 +121,12 @@ function appendDOM() {
     entryDOM(data.entries[i]);
   }
   switchViews(data.view);
+
+  //Making every icon clickable 
   var $icon = document.querySelectorAll('i');
   for(var i = 0; i < $icon.length; i++){
+    //Giving every icon an entryId but backwards
+    $icon[i].setAttribute("EntryId", $icon.length - i)
     $icon[i].addEventListener('click', function(){
       switchViews(event.target.getAttribute('data-view'))
       // console.log(data, "data");
@@ -137,17 +136,30 @@ function appendDOM() {
 
 //Listen for clicks on parent element 
 $entriesPage.addEventListener('click', function () {
-  console.log(event.target)
+
+  //If the click has the tagname I
   if (event.target.tagName === 'I') {
+ 
+    //Go through data model once we click the icon
+    for (var x = 0; x < data.entries.length; x++){
+      console.log(data.entries[x].entryId)
+      
+      //Checks entryId # to the number we put as an attribute for icons
+      if (data.entries[x].entryId === parseInt(event.target.attributes.EntryId.value)){
+        $inputTitle.value = data.entries[x].title;
+        $imgUrl.value = data.entries[x].photoUrl
+        $textArea.value = data.entries[x].notes
 
-    //Updates right away..? 
+           //Updates right away..? 
+           $setImg.setAttribute('src', data.entries[x].photoUrl);
 
+      }
+    }
     //If entryId matches... ???
-    $inputTitle.value = data.entries[0].title;
-    $imgUrl.value = data.entries[0].photoUrl
-    $textArea.value = data.entries[0].notes
+
     console.log(data, "data model")
-    console.dir(event.target);
+    console.log(event.target.attributes.EntryId.value);
+    
   }
 })
 
