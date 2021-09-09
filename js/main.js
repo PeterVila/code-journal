@@ -86,8 +86,6 @@ function entryDOM(entry) {
   $justifyDiv.appendChild($createIcon);
   $createDivColHalf.appendChild($createP);
   $createP.textContent = entry.notes;
-  
-  // $ul.appendChild($createLi);
   return $createLi;
 }
 
