@@ -6,6 +6,8 @@ var $inputTitle = document.querySelector('input[id=title]');
 var $textArea = document.querySelector('textarea');
 var $setImg = document.querySelector('img');
 var $ul = document.querySelector('ul');
+
+
 $imgUrl.addEventListener('input', changeImg);
 function changeImg(event) {
   $setImg.setAttribute('src', event.target.value);
@@ -42,6 +44,7 @@ function entryDOM(entry) {
   //<i class="fas fa-pen"></i>
   var $createIcon = document.createElement('i');
   $createIcon.setAttribute('class', 'fas fa-pen');
+  $createIcon.setAttribute('data-view', 'entry-form')
   //p div
   // var $textDiv = document.createElement('p');
   $createLi.appendChild($createDivData);
@@ -87,7 +90,6 @@ function handleViewNavigation(event){
   switchViews(event.target.getAttribute('data-view'));
 }
 
-
 var $viewElements = document.querySelectorAll('div[data-view]');
 
 function switchViews(view) {
@@ -114,5 +116,34 @@ function appendDOM() {
     entryDOM(data.entries[i]);
   }
   switchViews(data.view);
+
+
+  var $icon = document.querySelectorAll('i');
+  for(var i = 0; i < $icon.length; i++){
+    $icon[i].addEventListener('click', function(){
+      switchViews(event.target.getAttribute('data-view'))
+      console.log(data, "data");
+      console.log('which pencil #', i)
+      if (event.target.tagName === 'I') {
+        var whichElement = event.target.closest('li'); //parent container
+        console.dir(whichElement);
+        //Make a loop and if 
+      }
+      //entryID
+      // On click, return the closest 
+      //Want i = 1 to return entries form at 1 with inputs filled
+    })
+  }
 }
 
+
+
+
+/*
+Clicking the icon opens entry-form
+Information from [i] of $editIcon to match data.entries[i]
+
+Clicking that button 
+
+*/
+// for (var i = 0; i >)
