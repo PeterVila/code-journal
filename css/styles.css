@@ -5,7 +5,7 @@ textarea {
   padding-left: 1rem;
 }
 
-button {
+.purple-button {
   float: right;
   color: white;
   background-color: #4a2373;
@@ -124,4 +124,44 @@ h2 {
 
 h1 {
   font-size: 2.5rem;
+}
+
+.delete {
+  color: red;
+  margin-top: 1rem;
+}
+
+.modal-text p {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.modal-background {
+  background-color: rgba(0, 0, 0, 0.509);
+  position: absolute;
+  height: 100vh;
+  width: 100%
+}
+.modal {
+  background-color: white;
+  width: 400px;
+  margin: 30rem auto;
+  padding: 1rem;
+  font-weight: 600;
+}
+
+.grey-button {
+  background-color: grey;
+}
+.red-button {
+  background-color: red;
+  color: white;
+}
+
+.delete-button {
+  border-radius: 5px;
+  border: none;
+  padding: .5rem;
+  font-size: 1.2rem;
+  margin-top: 2rem;
 }

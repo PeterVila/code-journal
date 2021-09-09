@@ -23,6 +23,7 @@ function logForm(event) {
     notes: $textArea.value,
     entryId: data.nextEntryId
   };
+
   if (data.editing !== null){
     for (var k = 0; k < data.entries.length; k++) {
       if (data.editing === data.entries[k]) {
@@ -34,8 +35,9 @@ function logForm(event) {
         }
         
         data.entries.splice(k, 1, changeObject)
+
         var $findLi = document.querySelectorAll('li')
-        
+  
         for (var p = 0; p < $findLi.length; p++){
           if (parseInt($findLi[p].attributes['data-entry-id'].value) === data.editing.entryId){
             $findLi[p].replaceWith(entryDOM(changeObject))
@@ -50,7 +52,6 @@ function logForm(event) {
       $setImg.setAttribute('src', 'images/placeholder-image-square.jpg');
       $formSubmit.reset();
       $ul.prepend(entryDOM(formObject));
-      
     }
    switchViews("entries");
    
@@ -154,3 +155,21 @@ $entriesPage.addEventListener('click', function () {
     }
   }
 })
+
+var $deleteLink = document.querySelector(".delete")
+var $openModal = document.querySelector('.modal-background')
+
+$deleteLink.addEventListener('click', deleteEntry);
+function deleteEntry(event){
+    event.preventDefault();
+    $openModal.className = "modal-background"
+}
+
+//greybutton = cancel
+
+var $hideButton = document.querySelector('.grey-button')
+$hideButton.addEventListener('click', hideModal)
+function hideModal(event){
+  event.preventDefault();
+  $openModal.className = "modal-background hidden"
+}
