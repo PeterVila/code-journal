@@ -37,6 +37,13 @@ function entryDOM(entry) {
   var $createH2 = document.createElement('h2');
   var $createP = document.createElement('p');
 
+  //Surround div with justify-content
+  var $justifyDiv = document.createElement('div');
+  //<i class="fas fa-pen"></i>
+  var $createIcon = document.createElement('i');
+  $createIcon.setAttribute('class', 'fas fa-pen');
+  //p div
+  // var $textDiv = document.createElement('p');
   $createLi.appendChild($createDivData);
   $createDivData.setAttribute('data-view', 'entries');
   $createDivData.appendChild($createDivRow);
@@ -48,10 +55,22 @@ function entryDOM(entry) {
   $createImg.setAttribute('class', 'column-half');
   $createDivRow.appendChild($createDivColHalf);
   $createDivColHalf.setAttribute('class', 'column-half');
-  $createDivColHalf.appendChild($createH2);
+
+  // $justifyDiv
+  $createDivColHalf.appendChild($justifyDiv);
+  
+  $justifyDiv.setAttribute('class', 'justify-space row')
+  $justifyDiv.appendChild($createH2);
   $createH2.textContent = entry.title;
+  $justifyDiv.appendChild($createIcon);
+
+  //divcolhalf = column half GOOD
+    //h2 in a div
+    //icon div justify-space + row
+      //Another Div
   $createDivColHalf.appendChild($createP);
   $createP.textContent = entry.notes;
+
   $ul.appendChild($createLi);
   return $createLi;
 }
@@ -80,15 +99,15 @@ function switchViews(view) {
       data.view = $viewElements[i].getAttribute('data-view');
     }
   }
+  if ($ul.childElementCount === 0) {
+    $noItems.className = 'center-text';
+  } else {
+    $noItems.className = 'center-text hidden';
+  }
 }
 
 window.addEventListener('DOMContentLoaded', appendDOM);
 var $noItems = document.querySelector('.center-text');
-if ($ul.childElementCount === 0) {
-  $noItems.className = 'center-text hidden';
-} else {
-  $noItems.className = 'center-text';
-}
 
 function appendDOM() {
   for (var i = 0; i < data.entries.length; i++) {
@@ -96,3 +115,4 @@ function appendDOM() {
   }
   switchViews(data.view);
 }
+
