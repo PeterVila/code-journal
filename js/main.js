@@ -49,7 +49,6 @@ function logForm(event) {
   } else {
       data.nextEntryId += 1;
       data.entries.unshift(formObject);
-      $setImg.setAttribute('src', 'images/placeholder-image-square.jpg');
       $formSubmit.reset();
       $ul.prepend(entryDOM(formObject));
     }
@@ -100,6 +99,8 @@ $entriesLink.addEventListener('click', handleViewNavigation)
 
 function handleViewNavigation(event){
   switchViews(event.target.getAttribute('data-view'));
+  $formSubmit.reset()
+  data.editing = null;
 }
 
 var $viewElements = document.querySelectorAll('div[data-view]');
@@ -156,20 +157,40 @@ $entriesPage.addEventListener('click', function () {
   }
 })
 
-var $deleteLink = document.querySelector(".delete")
 var $openModal = document.querySelector('.modal-background')
-
+var $deleteLink = document.querySelector(".delete")
 $deleteLink.addEventListener('click', deleteEntry);
 function deleteEntry(event){
     event.preventDefault();
     $openModal.className = "modal-background"
 }
 
-//greybutton = cancel
 
 var $hideButton = document.querySelector('.grey-button')
 $hideButton.addEventListener('click', hideModal)
 function hideModal(event){
   event.preventDefault();
   $openModal.className = "modal-background hidden"
+}
+
+var $deleteButton = document.querySelector('.red-button');
+$deleteButton.addEventListener('click', removeEntry)
+
+function removeEntry(event){
+  event.preventDefault();
+     for (var w = 0; w < data.entries.length; w++) {
+       if (data.editing === data.entries[w]) {
+         data.entries.splice(w, 1)
+         var $findLi = document.querySelectorAll('li')
+         for (var p = 0; p < $findLi.length; p++) {
+           if (parseInt($findLi[p].attributes['data-entry-id'].value) === data.editing.entryId) {
+             $findLi[p].remove();
+             data.nextEntryId--
+           }
+         }
+         data.editing = null;
+       }
+     }
+    switchViews("entries");
+    $openModal.className="modal-background hidden"
 }
