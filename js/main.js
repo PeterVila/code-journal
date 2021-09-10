@@ -230,4 +230,5 @@ $oldestButton.addEventListener('click', function () {
 $newestButton.addEventListener('click', function () {
   $ul.setAttribute('class', "");
   $orderUl.setAttribute('class', "hidden");
+  $orderUl.addEventListener('click', iconClick)
 })
