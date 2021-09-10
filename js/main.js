@@ -23,6 +23,7 @@ function logForm(event) {
     notes: $textArea.value,
     entryId: data.nextEntryId
   };
+
   if (data.editing !== null){
     for (var k = 0; k < data.entries.length; k++) {
       if (data.editing === data.entries[k]) {
@@ -34,8 +35,9 @@ function logForm(event) {
         }
         
         data.entries.splice(k, 1, changeObject)
+
         var $findLi = document.querySelectorAll('li')
-        
+  
         for (var p = 0; p < $findLi.length; p++){
           if (parseInt($findLi[p].attributes['data-entry-id'].value) === data.editing.entryId){
             $findLi[p].replaceWith(entryDOM(changeObject))
@@ -47,10 +49,8 @@ function logForm(event) {
   } else {
       data.nextEntryId += 1;
       data.entries.unshift(formObject);
-      $setImg.setAttribute('src', 'images/placeholder-image-square.jpg');
       $formSubmit.reset();
       $ul.prepend(entryDOM(formObject));
-      
     }
    switchViews("entries");
    
@@ -99,6 +99,8 @@ $entriesLink.addEventListener('click', handleViewNavigation)
 
 function handleViewNavigation(event){
   switchViews(event.target.getAttribute('data-view'));
+  $formSubmit.reset()
+  data.editing = null;
 }
 
 var $viewElements = document.querySelectorAll('div[data-view]');
@@ -117,7 +119,6 @@ function switchViews(view) {
   } else {
     $noItems.className = 'center-text hidden';
   }
-
 }
 
 window.addEventListener('DOMContentLoaded', appendDOM);
@@ -154,3 +155,36 @@ $entriesPage.addEventListener('click', function () {
     }
   }
 })
+
+var $openModal = document.querySelector('.modal-background')
+var $deleteLink = document.querySelector(".delete")
+$deleteLink.addEventListener('click', deleteEntry);
+function deleteEntry(event){
+    $openModal.className = "modal-background"
+}
+
+
+var $hideButton = document.querySelector('.grey-button')
+$hideButton.addEventListener('click', hideModal)
+function hideModal(event){
+  $openModal.className = "modal-background hidden"
+}
+
+var $deleteButton = document.querySelector('.red-button');
+$deleteButton.addEventListener('click', removeEntry)
+
+function removeEntry(event){
+     for (var w = 0; w < data.entries.length; w++) {
+       if (data.editing === data.entries[w]) {
+         data.entries.splice(w, 1)
+         var $findLi = document.querySelectorAll('li')
+         for (var p = 0; p < $findLi.length; p++) {
+           if (parseInt($findLi[p].attributes['data-entry-id'].value) === data.editing.entryId) {
+             $findLi[p].remove();
+           }
+         }
+       }
+     }
+    switchViews("entries");
+    $openModal.className = "modal-background hidden"
+} 

@@ -5,17 +5,7 @@ textarea {
   padding-left: 1rem;
 }
 
-button {
-  float: right;
-  color: white;
-  background-color: #4a2373;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  border: none;
-  margin-top: 10px;
-  margin-right: 0.5rem;
-  margin-bottom: 4rem;
-}
+
 
 button:hover {
   background-color: #32174f;
@@ -103,9 +93,15 @@ ul {
 }
 
 .newButton {
-  margin: 1.5rem 0;
-  padding: 0rem 1.5rem;
-  font-size: 1.1rem
+  float: right;
+  color: white;
+  background-color: #4a2373;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  margin-top: 2rem;
+  margin-right: 0.5rem;
+  margin-bottom: 4rem;
 }
 
 .center-text {
@@ -113,6 +109,17 @@ ul {
   font-size: 1.5rem;
 }
 
+.purpleButton {
+    float: right;
+    color: white;
+    background-color: #4a2373;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: none;
+    margin-top: 2rem;
+    margin-right: 0.5rem;
+    margin-bottom: 4rem;
+}
 i {
   color: #4a2373;
   font-size: 1.5rem;
@@ -124,4 +131,44 @@ h2 {
 
 h1 {
   font-size: 2.5rem;
+}
+
+.delete {
+  color: red;
+  margin-top: 1rem;
+}
+
+.modal-text p {
+  text-align: center;
+  font-size: 1.2rem;
+}
+
+.modal-background {
+  background-color: rgba(0, 0, 0, 0.509);
+  position: absolute;
+  height: 100vh;
+  width: 100%
+}
+.modal {
+  background-color: white;
+  width: 400px;
+  margin: 30rem auto;
+  padding: 1rem;
+  font-weight: 600;
+}
+
+.grey-button {
+  background-color: grey;
+}
+.red-button {
+  background-color: red;
+  color: white;
+}
+
+.delete-button {
+  border-radius: 5px;
+  border: none;
+  padding: .5rem;
+  font-size: 1.2rem;
+  margin-top: 2rem;
 }

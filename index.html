@@ -15,6 +15,19 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
+    <div class="modal-background hidden">
+      <div class="modal">
+        <div class="modal-text">
+          <p class="">
+            Are you sure you want to delete this entry?
+          </p>
+        </div>
+        <div class="modal-buttons row justify-space">
+          <button class="delete-button grey-button">CANCEL</button>
+          <button class="delete-button red-button">CONFIRM</button>
+        </div>
+      </div>
+    </div>
       <header>
         <h3 class="container">Code Journal<a href="#entry-form" data-view="entries">Entries</a></h3>
       </header>
@@ -42,13 +55,18 @@
               </label>
               <textarea name="notes" id="notes" cols="30" rows="10" required></textarea>
             </div>
-            <button data-view="entries" type="submit">SAVE</button>
+            <!--Delete Button-->
+            <div class="row justify-space">
+                <a class="delete" href="">Delete Entry</a>
+                <button class="purpleButton" data-view="entries" type="submit">SAVE</button>
+            </div>
           </form>
+
         </div>
         <div data-view="entries" class="hidden">
           <div class="row justify-space">
             <h1>Entries</h1>
-            <button class="newButton" type="submit" data-view="entry-form">NEW</button>
+            <button class="newButton .purple-button" type="submit" data-view="entry-form">NEW</button>
           </div>
           <div class="center-text">
             <p>No entries have been recorded.</p>
