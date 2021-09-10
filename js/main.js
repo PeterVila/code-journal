@@ -15,15 +15,16 @@ function changeImg(event) {
 }
 
 $formSubmit.addEventListener('submit', logForm);
+var currentDate = Date().substr(0,10)
 function logForm(event) {
   event.preventDefault();
   var formObject = {
     title: $inputTitle.value,
     photoUrl: $imgUrl.value,
     notes: $textArea.value,
-    entryId: data.nextEntryId
+    entryId: data.nextEntryId,
+    date: currentDate //DATE
   };
-
   if (data.editing !== null){
     for (var k = 0; k < data.entries.length; k++) {
       if (data.editing === data.entries[k]) {
@@ -31,13 +32,13 @@ function logForm(event) {
           title: $inputTitle.value,
           photoUrl: $imgUrl.value,
           notes: $textArea.value,
-          entryId: data.entries.length - k
+          entryId: data.entries.length - k,
+          date: currentDate //DATE
         }
         
         data.entries.splice(k, 1, changeObject)
 
         var $findLi = document.querySelectorAll('li')
-  
         for (var p = 0; p < $findLi.length; p++){
           if (parseInt($findLi[p].attributes['data-entry-id'].value) === data.editing.entryId){
             $findLi[p].replaceWith(entryDOM(changeObject))
@@ -69,6 +70,9 @@ function entryDOM(entry) {
   $createIcon.setAttribute('class', 'fas fa-pen');
   $createIcon.setAttribute('data-view', 'entry-form')
   $createLi.appendChild($createDivData);
+
+  // $createLi.setAttribute('date', entry.title)
+
   $createDivData.setAttribute('data-view', 'entries');
   $createDivData.appendChild($createDivRow);
   $createDivRow.setAttribute('class', 'row');
@@ -83,6 +87,13 @@ function entryDOM(entry) {
   $justifyDiv.setAttribute('class', 'justify-space row')
   $justifyDiv.appendChild($createH2);
   $createH2.textContent = entry.title;
+  //Create H6, add color, add value from entry.date
+  var $createH6 = document.createElement('h6');
+  $createH6.setAttribute('class', 'date')
+  $createH6.textContent = entry.date
+  $justifyDiv.appendChild($createH6)
+
+
   $justifyDiv.appendChild($createIcon);
   $createDivColHalf.appendChild($createP);
   $createP.textContent = entry.notes;
@@ -120,7 +131,6 @@ function switchViews(view) {
     $noItems.className = 'center-text hidden';
   }
 }
-
 window.addEventListener('DOMContentLoaded', appendDOM);
 var $noItems = document.querySelector('.center-text');
 
@@ -134,9 +144,7 @@ function appendDOM() {
 
 
 $entriesPage.addEventListener('click', function () {
-  
-  var $liItems = document.querySelectorAll('li');
-
+  var $liItems = document.querySelectorAll('li')
   if (event.target.tagName === 'I') {
       var $icon = document.querySelectorAll('i');
       for (var i = 0; i < $icon.length; i++) {
@@ -160,6 +168,7 @@ var $openModal = document.querySelector('.modal-background')
 var $deleteLink = document.querySelector(".delete")
 $deleteLink.addEventListener('click', deleteEntry);
 function deleteEntry(event){
+    event.preventDefault()
     $openModal.className = "modal-background"
 }
 

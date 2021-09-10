@@ -126,7 +126,8 @@ i {
 }
 
 h2 {
-  font-size: 2rem
+  font-size: 2rem;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 h1 {
@@ -171,4 +172,31 @@ h1 {
   padding: .5rem;
   font-size: 1.2rem;
   margin-top: 2rem;
+}
+
+.date {
+  background-color:#4a2373;
+  padding: .5rem 1rem;
+  margin-top: 0rem;
+  color: white;
+  border-radius: 10rem;
+  font-size: 1rem;
+}
+
+.sort {
+  background-color: rgb(149, 65, 187);
+  border-radius: 10rem;
+  color: white;
+  font-size: 1.0rem;
+  border: none;
+  padding: .5rem;
+}
+
+.new {
+  float: right;
+}
+
+.old {
+ float: right;
+ margin-left: 1rem;
 }
