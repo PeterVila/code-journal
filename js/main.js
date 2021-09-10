@@ -15,7 +15,7 @@ function changeImg(event) {
 }
 
 $formSubmit.addEventListener('submit', logForm);
-var currentDate = Date().substr(0,10)
+var currentDate = Date()
 function logForm(event) {
   event.preventDefault();
   var formObject = {
@@ -72,7 +72,7 @@ function entryDOM(entry) {
   $createLi.appendChild($createDivData);
 
   // $createLi.setAttribute('date', entry.title)
-
+  $createLi.setAttribute('date', entry.date)
   $createDivData.setAttribute('data-view', 'entries');
   $createDivData.appendChild($createDivRow);
   $createDivRow.setAttribute('class', 'row');
@@ -90,7 +90,7 @@ function entryDOM(entry) {
   //Create H6, add color, add value from entry.date
   var $createH6 = document.createElement('h6');
   $createH6.setAttribute('class', 'date')
-  $createH6.textContent = entry.date
+  $createH6.textContent = entry.date.substr(0,21);
   $justifyDiv.appendChild($createH6)
 
 
@@ -109,8 +109,10 @@ $newButton.addEventListener('click', handleViewNavigation);
 $entriesLink.addEventListener('click', handleViewNavigation)
 
 function handleViewNavigation(event){
-  switchViews(event.target.getAttribute('data-view'));
   $formSubmit.reset()
+
+  switchViews(event.target.getAttribute('data-view'));
+  $setImg.setAttribute('src', 'images/placeholder-image-square.jpg');
   data.editing = null;
 }
 
@@ -197,3 +199,19 @@ function removeEntry(event){
     switchViews("entries");
     $openModal.className = "modal-background hidden"
 } 
+
+//Go through our data and make an array of values from date
+
+
+function findDates(){
+  var allDates = [];
+
+  for (var v = 0; v < data.entries.length; v++) {
+    allDates.push(data.entries[v].date.substr(0, 21))
+  }
+  console.log('allDates:', allDates)
+  var reversedOrder = allDates.reverse();
+  console.log('reversed allDates', reversedOrder);
+}
+
+findDates();
