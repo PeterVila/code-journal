@@ -15,7 +15,7 @@ function changeImg(event) {
 }
 
 $formSubmit.addEventListener('submit', logForm);
-var currentDate = Date()
+var currentDate = Date().substr(0, 21)
 function logForm(event) {
   event.preventDefault();
   var formObject = {
@@ -67,11 +67,9 @@ function entryDOM(entry) {
   var $createP = document.createElement('p');
   var $justifyDiv = document.createElement('div');
   var $createIcon = document.createElement('i');
-  $createIcon.setAttribute('class', 'fas fa-pen');
+  $createIcon.className = 'fas fa-pen';
   $createIcon.setAttribute('data-view', 'entry-form')
   $createLi.appendChild($createDivData);
-
-  // $createLi.setAttribute('date', entry.title)
   $createLi.setAttribute('date', entry.date)
   $createDivData.setAttribute('data-view', 'entries');
   $createDivData.appendChild($createDivRow);
@@ -87,7 +85,6 @@ function entryDOM(entry) {
   $justifyDiv.setAttribute('class', 'justify-space row')
   $justifyDiv.appendChild($createH2);
   $createH2.textContent = entry.title;
-  //Create H6, add color, add value from entry.date
   var $createH6 = document.createElement('h6');
   $createH6.setAttribute('class', 'date')
   $createH6.textContent = entry.date.substr(0,21);
@@ -144,27 +141,29 @@ function appendDOM() {
   switchViews(data.view);
 }
 
-
-$entriesPage.addEventListener('click', function () {
+function iconClick(event){
   var $liItems = document.querySelectorAll('li')
   if (event.target.tagName === 'I') {
-      var $icon = document.querySelectorAll('i');
-      for (var i = 0; i < $icon.length; i++) {
-        $icon[i].setAttribute("data-entry-id", $icon.length - i);
-        $liItems[i].setAttribute("data-entry-id", $icon.length - i)
-      }
-      switchViews(event.target.getAttribute('data-view'))
-    for (var x = 0; x < data.entries.length; x++){
+    var $icon = document.querySelectorAll('i');
+    for (var i = 0; i < $icon.length; i++) {
+      $icon[i].setAttribute("data-entry-id", $icon.length - i);
+      $liItems[i].setAttribute("data-entry-id", $icon.length - i)
+    }
+    switchViews(event.target.getAttribute('data-view'))
+    for (var x = 0; x < data.entries.length; x++) {
       if (data.entries[x].entryId === parseInt(event.target.attributes['data-entry-id'].value)) {
         $inputTitle.value = data.entries[x].title;
         $imgUrl.value = data.entries[x].photoUrl
         $textArea.value = data.entries[x].notes
         $setImg.setAttribute('src', data.entries[x].photoUrl);
+
         data.editing = data.entries[x]
       }
     }
   }
-})
+}
+
+$entriesPage.addEventListener('click', iconClick)
 
 var $openModal = document.querySelector('.modal-background')
 var $deleteLink = document.querySelector(".delete")
@@ -201,17 +200,34 @@ function removeEntry(event){
 } 
 
 //Go through our data and make an array of values from date
+var allDates = [];
 
-
-function findDates(){
-  var allDates = [];
-
+function findDates() {
   for (var v = 0; v < data.entries.length; v++) {
     allDates.push(data.entries[v].date.substr(0, 21))
   }
   console.log('allDates:', allDates)
-  var reversedOrder = allDates.reverse();
-  console.log('reversed allDates', reversedOrder);
 }
-
 findDates();
+
+$orderUl = document.querySelector('.order');
+var $newestButton = document.querySelector('.new');
+var $oldestButton = document.querySelector('.old');
+//If user clicks oldest Button, unhide $orderUl and hide $ul
+
+$oldestButton.addEventListener('click', function () {
+  $orderUl.setAttribute('class', "")
+  $ul.setAttribute('class', "hidden");
+  for (var q = 0; q < allDates.length; q++) {
+    for (var e = 0; e < data.entries.length; e++) {
+      if (allDates[q] === data.entries[e].date) {
+        $orderUl.prepend(entryDOM(data.entries[e])) //Reverses
+      }
+    }
+  }
+})
+
+$newestButton.addEventListener('click', function () {
+  $ul.setAttribute('class', "");
+  $orderUl.setAttribute('class', "hidden");
+})
