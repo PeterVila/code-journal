@@ -119,7 +119,6 @@ function switchViews(view) {
   } else {
     $noItems.className = 'center-text hidden';
   }
-
 }
 
 window.addEventListener('DOMContentLoaded', appendDOM);
@@ -161,7 +160,6 @@ var $openModal = document.querySelector('.modal-background')
 var $deleteLink = document.querySelector(".delete")
 $deleteLink.addEventListener('click', deleteEntry);
 function deleteEntry(event){
-    event.preventDefault();
     $openModal.className = "modal-background"
 }
 
@@ -169,7 +167,6 @@ function deleteEntry(event){
 var $hideButton = document.querySelector('.grey-button')
 $hideButton.addEventListener('click', hideModal)
 function hideModal(event){
-  event.preventDefault();
   $openModal.className = "modal-background hidden"
 }
 
@@ -177,7 +174,6 @@ var $deleteButton = document.querySelector('.red-button');
 $deleteButton.addEventListener('click', removeEntry)
 
 function removeEntry(event){
-  event.preventDefault();
      for (var w = 0; w < data.entries.length; w++) {
        if (data.editing === data.entries[w]) {
          data.entries.splice(w, 1)
@@ -185,12 +181,10 @@ function removeEntry(event){
          for (var p = 0; p < $findLi.length; p++) {
            if (parseInt($findLi[p].attributes['data-entry-id'].value) === data.editing.entryId) {
              $findLi[p].remove();
-             data.nextEntryId--
            }
          }
-         data.editing = null;
        }
      }
     switchViews("entries");
-    $openModal.className="modal-background hidden"
-}
+    $openModal.className = "modal-background hidden"
+} 
